@@ -34,6 +34,11 @@ message DeleteRequest {
     bytes key = 2;
 }
 
+message SingleDeleteRequest {
+    string cf = 1;
+    bytes key = 2;
+}
+
 message DeleteResponse {}
 
 message DeleteRangeRequest {
@@ -87,6 +92,7 @@ enum CmdType {
     DeleteRange = 7;
     IngestSST = 8;
     ReadIndex = 9;
+    SingleDelete = 10;
 }
 
 message Request {
@@ -99,6 +105,7 @@ message Request {
     DeleteRangeRequest delete_range = 8;
     IngestSSTRequest ingest_sst = 9;
     ReadIndexRequest read_index = 10;
+    SingleDeleteRequest single_delete = 11;
 }
 
 message Response {

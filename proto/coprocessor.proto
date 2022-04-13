@@ -37,6 +37,9 @@ message Request {
     bool is_trace_enabled = 9;
     // paging_size is 0 when it's disabled, otherwise, it should be a positive number.
     uint64 paging_size = 10;
+    
+    // Control the count of concurrent bucket-level tasks of the request.
+    uint64 concurrency = 11;
 }
 
 message Response {

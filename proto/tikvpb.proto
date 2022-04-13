@@ -104,6 +104,8 @@ service Tikv {
 
     /// Get the information about lock waiting from TiKV.
     rpc GetLockWaitInfo(kvrpcpb.GetLockWaitInfoRequest) returns (kvrpcpb.GetLockWaitInfoResponse);
+
+    rpc CoprocessorBucket(coprocessor.Request) returns (stream coprocessor.Response) {}
 }
 
 message BatchCommandsRequest {

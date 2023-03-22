@@ -3866,6 +3866,39 @@
             ]
           },
           {
+            "name": "GetDisaggConfigRequest"
+          },
+          {
+            "name": "DisaggS3Config",
+            "fields": [
+              {
+                "id": 1,
+                "name": "bucket",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "root",
+                "type": "string"
+              },
+              {
+                "id": 3,
+                "name": "endpoint",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "GetDisaggConfigResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "s3_config",
+                "type": "DisaggS3Config"
+              }
+            ]
+          },
+          {
             "name": "DisaggTaskMeta",
             "fields": [
               {
@@ -3897,6 +3930,16 @@
                 "id": 6,
                 "name": "executor_id",
                 "type": "string"
+              },
+              {
+                "id": 7,
+                "name": "keyspace_id",
+                "type": "uint32"
+              },
+              {
+                "id": 8,
+                "name": "api_version",
+                "type": "kvrpcpb.APIVersion"
               }
             ]
           },
@@ -4050,6 +4093,9 @@
           },
           {
             "path": "metapb.proto"
+          },
+          {
+            "path": "kvrpcpb.proto"
           }
         ],
         "package": {
@@ -11551,6 +11597,22 @@
             ]
           },
           {
+            "name": "ServiceMode",
+            "enum_fields": [
+              {
+                "name": "UNKNOWN_SVC_MODE"
+              },
+              {
+                "name": "PD_SVC_MODE",
+                "integer": 1
+              },
+              {
+                "name": "API_SVC_MODE",
+                "integer": 2
+              }
+            ]
+          },
+          {
             "name": "CheckPolicy",
             "enum_fields": [
               {
@@ -12384,6 +12446,32 @@
                   "name": "tso_allocator_leaders",
                   "type": "Member"
                 }
+              }
+            ]
+          },
+          {
+            "name": "GetClusterInfoRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "header",
+                "type": "ResponseHeader"
+              }
+            ]
+          },
+          {
+            "name": "GetClusterInfoResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "header",
+                "type": "ResponseHeader"
+              },
+              {
+                "id": 2,
+                "name": "serviceModes",
+                "type": "ServiceMode",
+                "is_repeated": true
               }
             ]
           },
@@ -13890,6 +13978,11 @@
             "name": "PD",
             "rpcs": [
               {
+                "name": "GetClusterInfo",
+                "in_type": "GetClusterInfoRequest",
+                "out_type": "GetClusterInfoResponse"
+              },
+              {
                 "name": "GetMembers",
                 "in_type": "GetMembersRequest",
                 "out_type": "GetMembersResponse"
@@ -14809,6 +14902,11 @@
                 "name": "entries",
                 "type": "eraftpb.Entry",
                 "is_repeated": true
+              },
+              {
+                "id": 4,
+                "name": "source_state",
+                "type": "raft_serverpb.RegionLocalState"
               }
             ]
           },
@@ -15269,6 +15367,9 @@
           },
           {
             "path": "import_sstpb.proto"
+          },
+          {
+            "path": "raft_serverpb.proto"
           },
           {
             "path": "rustproto.proto"
@@ -17797,6 +17898,11 @@
                 "in_type": "disaggregated.FetchDisaggPagesRequest",
                 "out_type": "disaggregated.PagesPacket",
                 "out_streamed": true
+              },
+              {
+                "name": "GetDisaggConfig",
+                "in_type": "disaggregated.GetDisaggConfigRequest",
+                "out_type": "disaggregated.GetDisaggConfigResponse"
               }
             ]
           }
@@ -18139,6 +18245,27 @@
                 "id": 3,
                 "name": "timestamp",
                 "type": "pdpb.Timestamp"
+              }
+            ]
+          },
+          {
+            "name": "Participant",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "id",
+                "type": "uint64"
+              },
+              {
+                "id": 3,
+                "name": "listen_urls",
+                "type": "string",
+                "is_repeated": true
               }
             ]
           }
